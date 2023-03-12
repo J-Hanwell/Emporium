@@ -1,0 +1,29 @@
+h1, h2 {
+color: blue;
+text-align: center;
+}
+
+h1: {
+margin: 10em;
+}
+
+body {
+background-color: gray;
+}
+
+button {
+display: block;
+width: auto;
+margin: auto auto 10px auto;
+}
+
+
+#clicker {
+display: block;
+width: 50px;
+padding: 50px;
+margin: auto;
+background-color: white;
+border: black;
+color: black;
+}

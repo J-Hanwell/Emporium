@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Documentation Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./icon.png">
+</head>
+<body>
+    <nav id="sidebar" class="text-primary bg-tertiary">
+        <header class="main-header">
+            <img class="img-fluid mx-auto d-block main-logo"src="./pytest_logo.png"/>
+          </header>
+            <ul id="navlinks">
+                <li><a class="nav-link" href="#Install_pytest">Install pytest</a></li>
+                <li><a class="nav-link" href="#Create_your_first_test">Create your first test</a></li>
+                <li><a class="nav-link" href="#Run_multiple_tests">Run multiple tests</a></li>
+                <li><a class="nav-link" href="#Assert_that_a_certain_exception_is_raised">Assert that a certain exception is raised</a></li>
+                <li><a class="nav-link" href="#Group_multiple_tests_in_a_class">Group multiple tests in a class</a></li>
+                <li><a class="nav-link" href="#Request_a_unique_temporary_directory_for_functional_tests">Request a unique temporary directory for functional tests</a></li>
+               <li><a class="nav-link" href="#Continue_reading">Continue reading</a></li>
+            </ul>
+    </nav>
+    <main id="main-doc" class="col-6">
+        <header class="main-header">
+            <h2>Get Started with Pytest</h2>
+        </header>
+        <section class="main-section" id="Install_pytest">
+            <header>Install pytest</header>
+            <p>
+                <mark>pytest</mark> requires: Python 3.7+ or PyPy3.
+                <ol>
+                    <li>
+                        Run the following command in your command line:<br>
+                        <code>pip install -U pytest</code>
+                    </li>
+                    <li>
+                        Check that you installed the correct version:<br>
+                        <code>$ pytest --version
+                            pytest 7.2.2</code>
+                    </li>
+                </ol>
+            </p>
+        </section>
+        <section class="main-section" id="Create_your_first_test">
+            <header>Create your first test</header>
+            <p>
+                Create a new file called <mark>test_sample.py</mark>, containing a function, and a test:
+                <pre class="codeblock">
+                    <code>
+    # content of test_sample.py
+    def func(x):
+        return x + 1
+
+
+    def test_answer():
+        assert func(3) == 5
+                    </code>
+                </pre>
+                The test:
+                <pre class="codeblock">
+                    <code>
+                            $ pytest
+    =========================== test session starts ============================
+    platform linux -- Python 3.x.y, pytest-7.x.y, pluggy-1.x.y
+    rootdir: /home/sweet/project
+    collected 1 item
+
+    test_sample.py F                                                     [100%]
+
+    ================================= FAILURES =================================
+    _______________________________ test_answer ________________________________
+
+        def test_answer():
+    &gt;       assert func(3) == 5
+    E       assert 4 == 5
+    E        +  where 4 = func(3)
+
+    test_sample.py:6: AssertionError
+    ========================= short test summary info ==========================
+    FAILED test_sample.py::test_answer - assert 4 == 5
+    ============================ 1 failed in 0.12s =============================
+                    </code>
+                </pre>
+                The <mark>[100%]</mark> refers to the overall progress of running all test cases. After it finishes, pytest then shows a failure report because <mark>func(3)</mark> does not return <mark>5</mark>.
+                <div class="note">
+                    <h5>Note:</h5> 
+                    <p>
+                        You can use the <mark>assert</mark> statement to verify test expectations. pytest’s <a href="https://docs.python.org/3/reference/simple_stmts.html#assert">Advanced assertion introspection</a> will intelligently report intermediate values of the assert expression so you can avoid the many names of <a href="https://docs.python.org/3/library/unittest.html#testcase-objects">JUnit legacy methods</a>.
+                    </p>
+                </div>
+            </p>
+        </section>
+        <section class="main-section" id="Run_multiple_tests">
+            <header>Run multiple tests</header>
+            <p>
+                <mark>pytest</mark> will run all files of the form test_*.py or *_test.py in the current directory and its subdirectories. More generally, it follows <a href="https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#test-discovery">standard test discovery rules</a>
+            </p>
+        </section>
+        <section class="main-section" id="Assert_that_a_certain_exception_is_raised">
+            <header>Assert that a certain exception is raised</header>
+            <p>
+                Use the <a href="https://docs.pytest.org/en/7.1.x/how-to/assert.html#assertraises">raises</a> helper to assert that some code raises an exception:
+                <pre class="codeblock">
+                    <code>
+    # content of test_sysexit.py
+    import pytest
+
+
+    def f():
+        raise SystemExit(1)
+
+
+    def test_mytest():
+        with pytest.raises(SystemExit):
+            f()
+                    </code>
+                </pre>
+                Execute the test function with “quiet” reporting mode:
+                <pre class="codeblock">
+                    <code>
+    $ pytest -q test_sysexit.py
+    .                                                               [100%]
+    1 passed in 0.12s
+                    </code>
+                </pre>
+                <div class="note">
+                    <h5>Note:</h5>
+                    <p>The <mark>-q/--quiet</mark> flag keeps the output brief in this and following examples.</p>
+                </div>
+            </p>
+        </section>
+        <section class="main-section" id="Group_multiple_tests_in_a_class">
+            <header>Group multiple tests in a class</header>
+            <p>
+                Once you develop multiple tests, you may want to group them into a class. pytest makes it easy to create a class containing more than one test:
+            </p>
+            <pre class="codeblock">
+                <code>
+    # content of test_class.py
+    class TestClass:
+        def test_one(self):
+            x = "this"
+            assert "h" in x
+
+        def test_two(self):
+            x = "hello"
+            assert hasattr(x, "check")
+                </code>
+            </pre>
+            <p>
+                <mark>pytest</mark> discovers all tests following its <a href="https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#test-discovery">Conventions for Python test discovery</a>,  so it finds both <mark>test_ </mark> prefixed functions. There is no need to subclass anything, but make sure to prefix your class with <mark>Test</mark> otherwise the class will be skipped. We can simply run the module by passing its filename:
+            </p>
+            <pre class="codeblock">
+                <code>
+                        $ pytest -q test_class.py
+    .F                                                                   [100%]
+    ================================= FAILURES =================================
+    ____________________________ TestClass.test_two ____________________________
+
+    self = <test_class.TestClass object at 0xdeadbeef0001>
+
+        def test_two(self):
+            x = "hello"
+    &lt;       assert hasattr(x, "check")
+    E       AssertionError: assert False
+    E        +  where False = hasattr('hello', 'check')
+
+    test_class.py:8: AssertionError
+    ========================= short test summary info ==========================
+    FAILED test_class.py::TestClass::test_two - AssertionError: assert False
+    1 failed, 1 passed in 0.12s
+                </code>
+            </pre>
+            <p>
+                The first test passed and the second failed. You can easily see the intermediate values in the assertion to help you understand the reason for the failure.
+            </p>
+            <p>
+                Grouping tests in classes can be beneficial for the following reasons:
+            </p>
+            <ul>
+                <li>Test organization</li>
+                <li>Sharing fixtures for tests only in that particular class</li>
+                <li>Applying marks at the class level and having them implicitly apply to all tests</li>
+            </ul>
+            <p>
+                Something to be aware of when grouping tests inside classes is that each test has a unique instance of the class. Having each test share the same class instance would be very detrimental to test isolation and would promote poor test practices. This is outlined below: 
+            </p>
+            <pre class="codeblock">
+                <code>
+                        # content of test_class_demo.py
+    class TestClassDemoInstance:
+        value = 0
+
+        def test_one(self):
+            self.value = 1
+            assert self.value == 1
+
+        def test_two(self):
+            assert self.value == 1
+                </code>
+            </pre>
+            <pre class="codeblock">
+                <code>
+                        $ pytest -k TestClassDemoInstance -q
+    .F                                                                   [100%]
+    ================================= FAILURES =================================
+    ______________________ TestClassDemoInstance.test_two ______________________
+
+    self = <test_class_demo.TestClassDemoInstance object at 0xdeadbeef0002>
+
+        def test_two(self):
+    >       assert self.value == 1
+    E       assert 0 == 1
+    E        +  where 0 = <test_class_demo.TestClassDemoInstance object at 0xdeadbeef0002>.value
+
+    test_class_demo.py:9: AssertionError
+    ========================= short test summary info ==========================
+    FAILED test_class_demo.py::TestClassDemoInstance::test_two - assert 0 == 1
+    1 failed, 1 passed in 0.12s
+                </code>
+            </pre>
+            <p>
+                Note that attributes added at class level are <i>class attributes</i>, so they will be shared between tests.
+            </p>
+        </section>
+        <section class="main-section" id="Request_a_unique_temporary_directory_for_functional_tests">
+            <header>Request a unique temporary directory for functional tests</header>
+            <p>
+                <mark>pytest</mark> provides <a href="https://docs.pytest.org/en/7.1.x/builtin.html">Builtin fixtures/function arguments</a> to request arbitrary resources, like a unique temporary directory:
+            </p>
+            <pre class="codeblock"><code>
+    # content of test_tmp_path.py
+    def test_needsfiles(tmp_path):
+        print(tmp_path)
+        assert 0
+            </code></pre>
+            <p>
+                List the name <mark>tmp_path</mark> in the test function signature and <mark>pytest</mark> will lookup and call a fixture factory to create the resource before performing the test function call. Before the test runs, <mark>pytest</mark> creates a unique-per-test-invocation temporary directory:
+            </p>
+            <pre class="codeblock"><code>
+    $ pytest -q test_tmp_path.py
+    F                                                                    [100%]
+    ================================= FAILURES =================================
+    _____________________________ test_needsfiles ______________________________
+    
+    tmp_path = PosixPath('PYTEST_TMPDIR/test_needsfiles0')
+    
+        def test_needsfiles(tmp_path):
+            print(tmp_path)
+    &lt;       assert 0
+    E       assert 0
+    
+    test_tmp_path.py:3: AssertionError
+    --------------------------- Captured stdout call ---------------------------
+    PYTEST_TMPDIR/test_needsfiles0
+    ========================= short test summary info ==========================
+    FAILED test_tmp_path.py::test_needsfiles - assert 0
+    1 failed in 0.12s
+            </code></pre>
+            <p>
+                More info on temporary directory handling is available at <a href="https://docs.pytest.org/en/7.1.x/how-to/tmp_path.html#tmp-path-handling">Temporary directories and files.</a>
+            </p>
+            <p>
+                Find out what kind of builtin <a href="https://docs.pytest.org/en/7.1.x/reference/fixtures.html#fixtures">pytest fixtures</a> exist with the command:
+            </p>
+            <pre class="codeblock"><code>
+pytest --fixtures   # shows builtin and custom fixtures
+            </code></pre>
+            <p>
+                Note that this command omits fixtures with leading <mark>_</mark> unless the <mark>-v</mark> option is added.
+            </p>
+        </section>
+        <section class="main-section" id="Continue_reading">
+            <header>Continue reading</header>
+            <p>
+                Check out additional pytest resources to help you customize tests for your unique workflow:
+            </p>
+            <ul>
+                <li><a href="https://docs.pytest.org/en/7.1.x/how-to/usage.html#usage">“How to invoke pytest”</a> for command line invocation examples</li>
+                <li><a href="https://docs.pytest.org/en/7.1.x/how-to/existingtestsuite.html#existingtestsuite">“How to use pytest with an existing test suite”</a> for working with pre-existing tests</li>
+                <li><a href="https://docs.pytest.org/en/7.1.x/how-to/mark.html#mark">“How to mark test functions with attributes”</a> for information on the <mark>pytest.mark</mark> mechanism</li>
+                <li><a href="https://docs.pytest.org/en/7.1.x/reference/fixtures.html#fixtures">“Fixtures reference” </a> for providing a functional baseline to your tests</li>
+                <li><a href="https://docs.pytest.org/en/7.1.x/how-to/writing_plugins.html#plugins">“Writing plugins”</a> for managing and writing plugins</li>
+                <li><a href="https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#goodpractices">“Good Integration Practices”</a> for virtualenv and test layouts
+                </li>
+            </ul>
+        </section>
+        <div class="footer">
+            <p>Copy of pytest documentation created by Joseph Rawnsley</p>
+            <a href="https://www.flaticon.com/free-icons/monitor" title="monitor icons">Monitor icons created by Freepik - Flaticon</a>
+        </div>
+        
+    </main>
+    
+</body>
+</html>

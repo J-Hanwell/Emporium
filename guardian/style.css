@@ -1,0 +1,130 @@
+.header {
+    font-family: "Guardian Text Egyptian Web",Georgia,serif;
+    background: #052962;
+    height: 215px;
+    margin: -10px;
+  }
+  
+  .image-row {
+    height: 180px;
+  }
+  
+  .logo {
+    position: relative;
+    display: block;
+    margin-right: 50px;
+    margin-left: auto;
+    top: 20px;
+  }
+  
+  .main-selector-row {
+    display: flex;
+    min-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0 auto 0 auto;
+    max-width: 900px;
+    border-top: 1px solid lightgrey;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    padding: 0 5px 0 5px;
+  }
+  
+  .mainlink {
+    
+    color: white;
+    font-size: 20pt;
+    flex: 10px;
+    
+  }
+  
+  .sub-selector-row {
+      display: flex;
+    min-width: 700px;
+    max-width: 910px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 2px solid lightgrey;
+    border-right: 2px solid lightgrey;
+      
+  }
+  
+  .subselector {
+    font-family: "Guardian Text Sans Web","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+    margin: 5px 5px 0 5px;
+  }
+  
+  .bold {
+    font-weight: bold;
+   
+  }
+  
+  .line {
+    border-bottom: 2px solid lightgrey;
+    border-left: 2px solid lightgrey;
+    border-right: 2px solid lightgrey;
+    max-width: 910px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2px;
+  }
+  
+  .article-grid {
+      display: flex;
+    min-width: 700px;
+    max-width: 910px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 2px solid lightgrey;
+    border-right: 2px solid lightgrey;
+    flex-flow: row wrap
+      
+  }
+  
+  .article {
+    margin: 2px;
+  }
+  
+  .headline, .hook {
+    display: inline;
+  }
+  
+  .hook {
+    color: #ab1207;
+    font-weight: bold;
+  }
+  
+  .smallest {
+    flex: 1;
+  }
+  
+  .small {
+    padding: 1px;
+  }
+  
+  .normal{
+    flex: 3;
+  }
+  
+  .large {
+    flex: 200px 4;
+  }
+  
+  .largest {
+    flex: 600px 5;
+    column-count: 2;
+  }
+  
+  .article-image {
+    max-width: 100%;
+  }
+  
+  .top-article-content {
+    break-inside: avoid;
+  }
+    
+  .shaded {
+    background: #f2f5f3;
+  }

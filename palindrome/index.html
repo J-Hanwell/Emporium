@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Palindrome Checker</title>
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	 <link rel="stylesheet" href="styles.css">
+	 <link rel="icon" href="./jicon.png">
+</head>
+<body>
+	<section class="main">
+		<div class="container has-text-centered">
+			<h1>Welcome to the palindrome checker</h1> <br>
+			<h2>Type your word in the box.</h2> <br>
+			<input type="text" id="inputField" placeholder="Type your word here"></input><br>
+			<button class="button is-primary" onclick="checkPalindrome()">Check</button> <br>
+			
+			<p id="answer"></p>
+		</div>
+	</section>
+	
+
+<script>
+	function palindrome(str) {
+		if (!str) {
+			return "Please enter some text."
+		}
+		let alphaNumeric = str.replace(/[^a-z0-9]/ig, "" ).toLowerCase();
+		let input = document.getElementById("inputField").value;
+		let firstHalf = alphaNumeric.substring(0, Math.floor(alphaNumeric.length / 2));
+		let secondHalf = "";
+
+		for (let i = alphaNumeric.length - 1; i >= alphaNumeric.length / 2; i --) {
+			secondHalf += alphaNumeric[i]
+		}
+	
+		return firstHalf === secondHalf ? "\""+input +"\"" + " is a palindrome!" : "\""+input +"\"" + " is not a palindrome :(";
+	}
+
+	function checkPalindrome() {
+	let input = document.getElementById("inputField").value
+	document.getElementById("answer").innerHTML = palindrome(input);
+	}
+</script>
+</body>
+
+
+</html>

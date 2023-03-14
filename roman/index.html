@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Roman Numeral Converter</title>
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	 <link rel="stylesheet" href="styles.css">
+	 <link rel="icon" href="./jicon.png">
+</head>
+<body>
+	<section class="main">
+		<div class="container has-text-centered">
+			<h1>Welcome to the Roman Numeral Converter</h1> <br>
+			<h2>Type a Roman numeral or number in the box.</h2> <br>
+			<input type="text" id="inputField" placeholder="Type your word here"></input><br>
+			<button class="button is-primary" onclick="doubleConvert()">Convert</button> <br>
+			
+			<p id="answer"></p>
+		</div>
+	</section>
+	
+
+<script>
+
+function convertToRoman(num) {
+  let output = ""
+  const numerals = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+
+  const values = {
+    "M": 1000,
+    "CM": 900,
+    "D": 500,
+    "CD": 400,
+    "C": 100,
+    "XC": 90,
+    "L": 50,
+    "XL": 40,
+    "X": 10,
+    "IX": 9,
+    "V": 5,
+    "IV": 4,
+    "I": 1
+  }
+for (let i = 0; i < numerals.length; i++) {
+  while (values[numerals[i]] <= num) {
+    output += numerals[i]
+    num -= values[numerals[i]]
+  }
+}
+ return output;
+}
+
+console.log(convertToRoman(68));
+	
+function doubleConvert() {
+	let input = document.getElementById("inputField").value;
+	if (input > 0) {
+		document.getElementById("answer").innerHTML = convertToRoman(input);
+	}
+	
+	else {
+		document.getElementById("answer").innerHTML = "Please enter a positive number"
+	}
+}
+	
+</script>
+</body>
+
+
+</html>

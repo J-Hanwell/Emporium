@@ -1,7 +1,8 @@
 const { values } = require("./values")
 
 function fromRoman(string) {
-    let input = string
+    let input = string.toUpperCase()
+    console.log(input)
     let accumulator = 0
     for (let i= 0; i < input.length; i ++) {
         if (input.substring(i, i + 2).match(/(CM|CD|XC|XL|IX|IV)/)) {
@@ -12,7 +13,9 @@ function fromRoman(string) {
             accumulator += values[input[i]]
         }
     }
+    
     return accumulator
+    
 }
 
 

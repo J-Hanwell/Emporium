@@ -17,7 +17,7 @@ const values = {
 const numerals = Object.keys(values)
 
 function fromRoman(string) {
-    let input = string
+    let input = string.toUpperCase()
     let accumulator = 0
     for (let i= 0; i < input.length; i ++) {
         if (input.substring(i, i + 2).match(/(CM|CD|XC|XL|IX|IV)/)) {
@@ -45,7 +45,7 @@ function convertToRoman(num) {
   } 
 
 const numberValidator = (string) => Number(string) > 0 && Number(string) <= 1000000
-const romanValidator = (string) => String(string).match(/^M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/)
+const romanValidator = (string) => String(string).toUpperCase().match(/^M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/)
 
 function twoWayConverter(input) {
     if (numberValidator(input)) {
@@ -56,7 +56,7 @@ function twoWayConverter(input) {
         return fromRoman(input)
     }
 
-    return "Please enter a valid number up to one million, or a roman numeral"
+    return "Please enter a valid number up to one million, or a Roman numeral"
 
 }
 

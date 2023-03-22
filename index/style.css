@@ -33,3 +33,8 @@
 .links {
   max-height: 66%;
 }
+
+.blurb {
+  margin-top: -3rem;
+  margin-bottom: 1rem;
+}

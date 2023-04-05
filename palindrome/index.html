@@ -7,12 +7,12 @@
 	 <link rel="icon" href="./jicon.png">
 </head>
 <body>
-	<section class="main">
+	<section class="main is-size-2">
 		<div class="container has-text-centered">
 			<h1>Welcome to the palindrome checker</h1> <br>
 			<h2>Type your word in the box.</h2> <br>
-			<input type="text" id="inputField" placeholder="Type your word here"></input><br>
-			<button class="button is-primary" onclick="checkPalindrome()">Check</button> <br>
+			<input type="text" id="inputField" placeholder="Type your word here" class="is-size-2"></input><br>
+			<button class="button is-primary" onclick="checkPalindrome()" class="is-size-2">Check</button> <br>
 			
 			<p id="answer"></p>
 		</div>
@@ -33,7 +33,7 @@
 			secondHalf += alphaNumeric[i]
 		}
 	
-		return firstHalf === secondHalf ? "\""+input +"\"" + " is a palindrome!" : "\""+input +"\"" + " is not a palindrome :(";
+		return firstHalf === secondHalf ? "Yes! \""+input +"\"" + " is a palindrome!" : "Sorry. \""+input +"\"" + " is not a palindrome :(";
 	}
 
 	function checkPalindrome() {
